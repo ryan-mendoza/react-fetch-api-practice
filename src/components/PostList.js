@@ -15,6 +15,7 @@ class PostList extends Component {
       .get('https://jsonplaceholder.typicode.com/posts')
       .then((response) => {
         console.log(response);
+        this.setState({ posts: response.data });
       })
       .catch((error) => {
         console.log(error);
@@ -22,7 +23,15 @@ class PostList extends Component {
   }
 
   render() {
-    return <div>List of posts</div>;
+    const { posts } = this.state;
+    return (
+      <div>
+        List of posts
+        {posts.length
+          ? posts.map((post) => <div key={post.id}>{post.title}</div>)
+          : null}
+      </div>
+    );
   }
 }
 
